@@ -114,7 +114,7 @@ export const ButtonImage = styled.img`
   width: 100%;
 `
 export const RulesImage = styled(ButtonImage)`
-  width: 200px;
+  width: 250px;
 `
 export const ShowResultContainer = styled.div`
   width: 330px;

@@ -53,8 +53,8 @@ class App extends Component {
   }
 
   generateRandomValue = id => {
-    const number = Math.ceil(Math.random() * choicesList.length) - 1
-    console.log(id)
+    const number = Math.floor(Math.random() * choicesList.length)
+    console.log(number)
     const randomObjectId = choicesList[number].id
     // console.log(randomObjectId)
     const playerUrlList = choicesList.filter(each => id === each.id)
@@ -63,25 +63,27 @@ class App extends Component {
       each => randomObjectId === each.id,
     )
     const opponentUrl = randomPlayerUrlList[0].imageUrl
-    let result = ''
+
     switch (id) {
       case 'ROCK':
         if (randomObjectId === 'ROCK') {
-          result = 'IT IS DRAW'
-          this.setState({result, playerUrl, opponentUrl, showResult: true})
+          this.setState({
+            result: 'IT IS DRAW',
+            playerUrl,
+            opponentUrl,
+            showResult: true,
+          })
         } else if (randomObjectId === 'PAPER') {
-          result = 'YOU LOSE'
           this.setState(pre => ({
-            result,
+            result: 'YOU LOSE',
             score: pre.score - 1,
             playerUrl,
             opponentUrl,
             showResult: true,
           }))
         } else if (randomObjectId === 'SCISSORS') {
-          result = 'YOU WON'
           this.setState(pre => ({
-            result,
+            result: 'YOU WON',
             score: pre.score + 1,
             playerUrl,
             opponentUrl,
@@ -91,21 +93,23 @@ class App extends Component {
         break
       case 'PAPER':
         if (randomObjectId === 'PAPER') {
-          result = 'IT IS DRAW'
-          this.setState({result, playerUrl, opponentUrl, showResult: true})
+          this.setState({
+            result: 'IT IS DRAW',
+            playerUrl,
+            opponentUrl,
+            showResult: true,
+          })
         } else if (randomObjectId === 'SCISSORS') {
-          result = 'YOU LOSE'
           this.setState(pre => ({
-            result,
+            result: 'YOU LOSE',
             score: pre.score - 1,
             playerUrl,
             opponentUrl,
             showResult: true,
           }))
         } else if (randomObjectId === 'ROCK') {
-          result = 'YOU WON'
           this.setState(pre => ({
-            result,
+            result: 'YOU WON',
             score: pre.score + 1,
             playerUrl,
             opponentUrl,
@@ -115,21 +119,23 @@ class App extends Component {
         break
       case 'SCISSORS':
         if (randomObjectId === 'SCISSORS') {
-          result = 'IT IS DRAW'
-          this.setState({result, playerUrl, opponentUrl, showResult: true})
+          this.setState({
+            result: 'IT IS DRAW',
+            playerUrl,
+            opponentUrl,
+            showResult: true,
+          })
         } else if (randomObjectId === 'ROCK') {
-          result = 'YOU LOSE'
           this.setState(pre => ({
-            result,
+            result: 'YOU LOSE',
             score: pre.score - 1,
             playerUrl,
             opponentUrl,
             showResult: true,
           }))
         } else if (randomObjectId === 'PAPER') {
-          result = 'YOU WON'
           this.setState(pre => ({
-            result,
+            result: 'YOU WON',
             score: pre.score + 1,
             playerUrl,
             opponentUrl,
@@ -147,7 +153,7 @@ class App extends Component {
     this.generateRandomValue(id)
   }
 
-  renderGameResultView = () => {
+  GameResultView = () => {
     const {result, playerUrl, opponentUrl} = this.state
     return (
       <ShowResultContainer>
@@ -189,7 +195,7 @@ class App extends Component {
           </ScoreContainer>
         </ResultContainer>
         {showResult ? (
-          this.renderGameResultView()
+          this.GameResultView()
         ) : (
           <GameButtonsContainer>
             {choicesList.map(eachChoice => (
@@ -203,7 +209,11 @@ class App extends Component {
             ))}
           </GameButtonsContainer>
         )}
-        <Popup trigger={<RulesButton>Rules</RulesButton>} position="top left">
+        <Popup
+          trigger={<RulesButton>Rules</RulesButton>}
+          position="center center"
+          modal="true"
+        >
           <RulesImage
             src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
             alt="rules"
